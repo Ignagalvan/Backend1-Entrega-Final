@@ -1,0 +1,15 @@
+{
+  "payload": [
+    {
+      "id": 1,
+      "title": "Teclado",
+      "description": "Mecánico",
+      "code": "TEC123",
+      "price": 100,
+      "status": true,
+      "stock": 10,
+      "category": "perifericos",
+      "thumbnails": []
+    }
+  ]
+}
