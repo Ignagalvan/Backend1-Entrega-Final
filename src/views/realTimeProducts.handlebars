@@ -1,0 +1,40 @@
+<h1>Catálogo en tiempo real</h1>
+
+<div id="productsList">
+    {{#if products.length}}
+    <ul>
+        {{#each products}}
+        <li>
+            <b>{{this.title}}</b> - ${{this.price}} (ID: {{this.id}})
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No hay productos cargados.</p>
+    {{/if}}
+</div>
+
+<hr />
+
+<h2>Agregar producto</h2>
+<form id="formProduct">
+    <input name="title" placeholder="Título" required />
+    <input name="description" placeholder="Descripción" required />
+    <input name="code" placeholder="Código" required />
+    <input name="price" type="number" placeholder="Precio" required />
+    <input name="stock" type="number" placeholder="Stock" required />
+    <input name="category" placeholder="Categoría" required />
+    <button type="submit">Agregar</button>
+</form>
+
+<hr />
+
+<h2>Eliminar producto</h2>
+<input id="deleteId" placeholder="ID del producto" />
+<button id="btnDelete">Eliminar</button>
+
+<br /><br />
+<a href="/">Volver al catálogo</a>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>

@@ -2,12 +2,23 @@
   "payload": [
     {
       "id": 1,
-      "title": "Teclado",
-      "description": "Mecánico",
-      "code": "TEC123",
+      "title": "Webcam",
+      "description": "HD",
+      "code": "HD",
+      "price": 80,
+      "status": true,
+      "stock": 15,
+      "category": "perifericos",
+      "thumbnails": []
+    },
+    {
+      "id": 2,
+      "title": "Mouse",
+      "description": "Inalambrico",
+      "code": "MOUS123",
       "price": 100,
       "status": true,
-      "stock": 10,
+      "stock": 20,
       "category": "perifericos",
       "thumbnails": []
     }
