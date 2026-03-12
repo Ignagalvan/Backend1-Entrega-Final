@@ -1,62 +1,33 @@
 import express from "express";
-import { engine } from "express-handlebars";
-import { createServer } from "http";
+import handlebars from "express-handlebars";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
+import { connectDB } from "./config/db.js";
 
 import productsRouter from "./routes/products.js";
 import cartsRouter from "./routes/carts.js";
 import viewsRouter from "./routes/views.router.js";
 
-const app = express();
+dotenv.config();
 
+const app = express();
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-
-app.use(express.static("./src/public"));
-
-
-app.engine("handlebars", engine());
-app.set("view engine", "handlebars");
+app.engine("handlebars", handlebars.engine());
 app.set("views", "./src/views");
+app.set("view engine", "handlebars");
 
-
+app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
+connectDB();
 
-app.use("/", viewsRouter);
-
-
-const httpServer = createServer(app);
-const io = new Server(httpServer);
-
-import ProductManager from "./managers/ProductManager.js";
-
-io.on("connection", async (socket) => {
-    console.log("Cliente conectado:", socket.id);
-
-    // Enviar lista actual cuando alguien se conectaaaa
-    const products = await ProductManager.getProducts();
-    socket.emit("products", products);
-
-    // Crear producto por websocket
-    socket.on("createProduct", async (data) => {
-        await ProductManager.addProduct(data);
-
-        const updatedProducts = await ProductManager.getProducts();
-        io.emit("products", updatedProducts);
-    });
-
-    // Eliminar producto por websocket
-    socket.on("deleteProduct", async (pid) => {
-        await ProductManager.deleteProduct(pid);
-
-        const updatedProducts = await ProductManager.getProducts();
-        io.emit("products", updatedProducts);
-    });
+const server = app.listen(PORT, () => {
+    console.log(`Servidor escuchando en puerto ${PORT}`);
 });
 
-httpServer.listen(8080, () => {
-    console.log("Server running on port 8080");
-});
+const io = new Server(server);
