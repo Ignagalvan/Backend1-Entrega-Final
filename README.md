@@ -54,3 +54,14 @@ node src/app.js
 
 Autor
 Ignacio Diego Galván
+
+## Notas del proyecto
+
+Las carpetas `src/data` y `src/managers` pertenecen a la implementación inicial de la pre-entrega donde se utilizaba persistencia en archivos JSON.
+
+En esta entrega final la persistencia principal se realiza con **MongoDB y Mongoose**, utilizando los modelos definidos en:
+
+- `src/models/Product.js`
+- `src/models/Cart.js`
+
+Por lo tanto, esas carpetas se mantienen únicamente como referencia de la implementación anterior y no forman parte de la lógica actual del sistema.
